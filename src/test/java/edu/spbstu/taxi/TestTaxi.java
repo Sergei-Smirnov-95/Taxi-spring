@@ -1,6 +1,5 @@
 package edu.spbstu.taxi;
 
-import edu.spbstu.taxi.Exceptions.DBConnectionException;
 import edu.spbstu.taxi.service.ServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,11 +14,13 @@ public class TestTaxi {
     ServiceImpl facade;
 
     @Test
-    public void Test(){
+    public void TestAuthorization(){
         try {
-            System.out.println(facade.authenticate("op1", "1111"));
-        } catch (DBConnectionException e) {
-            System.out.println("bggggg");
+            assert(facade.authenticate("op1", "111")==0);
+            assert(facade.authenticate("us1", "111")==1);
+            assert(facade.authenticate("dr1", "111")==2);
+        } catch (Exception e) {
+            System.out.println("error");
         }
     }
 }

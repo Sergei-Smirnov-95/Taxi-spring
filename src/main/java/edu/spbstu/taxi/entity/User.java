@@ -20,6 +20,7 @@ public class User {
     private String email;
     private String phone;
     private boolean authenticated;
+    @Column(name="TypeUser",insertable=false, updatable=false)
     private int TypeUser;
 
     public User() {

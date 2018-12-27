@@ -1,9 +1,9 @@
-/*
+
 package edu.spbstu.taxi.GUI;
 
 import edu.spbstu.taxi.Exceptions.HaveNotUserEx;
 import edu.spbstu.taxi.Exceptions.DBConnectionException;
-import edu.spbstu.taxi.service.Facade;
+import edu.spbstu.taxi.service.ServiceImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +17,7 @@ public class PassengerForm extends JFrame {
     private JTextField destinationAddresTextField;
     private JButton exitButton;
     private JPanel rootPanel;
-    private Facade facade;
+    private ServiceImpl facade;
 
     public PassengerForm(String userLogin) {
         super("Passenger workspace");
@@ -33,16 +33,7 @@ public class PassengerForm extends JFrame {
 
     }
     public void setListeners(String userLogin){
-
         JFrame thisFrame = this;
-        try {
-            facade = Facade.getInstance();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(new JFrame(),
-                    "Cant connect with DB", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         newOrderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -87,4 +78,4 @@ public class PassengerForm extends JFrame {
     }
 
 }
-*/
+

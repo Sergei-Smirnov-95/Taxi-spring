@@ -1,10 +1,11 @@
-/*
+
 package edu.spbstu.taxi.GUI;
 
 import edu.spbstu.taxi.entity.CostCalculation;
 import edu.spbstu.taxi.Exceptions.DBConnectionException;
 import edu.spbstu.taxi.Exceptions.HaveNotOrderEx;
-import edu.spbstu.taxi.service.Facade;
+import edu.spbstu.taxi.service.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +17,8 @@ public class PayInfo extends JFrame{
     private JTextField inputWaitingTimeTextField;
     private JButton completeOrderButton;
     private JPanel rootPanel;
-    private Facade facade;
+    @Autowired
+    private ServiceImpl facade;
 
     public PayInfo(int orderID) {
         super("Pay info");
@@ -32,14 +34,7 @@ public class PayInfo extends JFrame{
     }
     public void setListeners(int orderID){
         JFrame thisFrame = this;
-        try {
-            facade = Facade.getInstance();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(new JFrame(),
-                    "Cant connect with DB", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+
         completeOrderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -72,4 +67,4 @@ public class PayInfo extends JFrame{
 
     }
 }
-*/
+

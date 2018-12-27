@@ -17,13 +17,13 @@ public class Order {
     @Column(name = "destAddr")
     private String destinationAddress;
     @ManyToOne
-    //@JoinColumn(name = "passId")
+    @JoinColumn(name = "passId")
     private Passenger passenger;
     @ManyToOne
-    //@JoinColumn(name = "driverId")
+    @JoinColumn(name = "driverId")
     private Driver driver;
     @ManyToOne
-    //@JoinColumn(name = "operatorId")
+    @JoinColumn(name = "operatorId")
     private Operator operator;
     @Transient
     private OrderStatus orderStatus;

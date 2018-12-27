@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ServiceImpl {
-    //@Autowired
     private OrderRepository orderRepository;
     private DriverRepository driverRepository;
     private PassengerRepository passengerRepository;
@@ -25,15 +24,14 @@ public class ServiceImpl {
 
     @Autowired
     public ServiceImpl(OrderRepository orderRepository, PassengerRepository passengerRepository, DriverRepository driverRepository,
-                  OperatorRepository operatorRepository) {
+                       OperatorRepository operatorRepository) {
         this.passengerRepository = passengerRepository;
         this.driverRepository = driverRepository;
         this.operatorRepository = operatorRepository;
         this.orderRepository = orderRepository;
     }
 
-   //public OrderRepository getOrderRepository(){return orderRepository;}
-    public int authenticate(String login, String pwd) throws DBConnectionException {
+    public int authenticate(String login, String pwd) {
         if (loginPassenger(login, pwd)) {
             return 1;
         } else if (loginOperator(login, pwd)) {
@@ -46,18 +44,24 @@ public class ServiceImpl {
     }
 
     public boolean loginPassenger(String login, String pwd) {
-        Passenger pass = passengerRepository.getPassengerByLogin(login).get();
-        return pass.loginUser(pwd);
+        Passenger pass = passengerRepository.getPassengerByLogin(login).orElse(null);
+        if (pass != null)
+            return pass.loginUser(pwd);
+        return false;
     }
 
     public boolean loginDriver(String login, String pwd) {
-        Driver driver = driverRepository.getDriverByLogin(login).get();
-        return driver.loginUser(pwd);
+        Driver driver = driverRepository.getDriverByLogin(login).orElse(null);
+        if (driver != null)
+            return driver.loginUser(pwd);
+        return false;
     }
 
     public boolean loginOperator(String login, String pwd) {
-        Operator op = operatorRepository.getOperatorByLogin(login).get();
-        return op.loginUser(pwd);
+        Operator op = operatorRepository.getOperatorByLogin(login).orElse(null);
+        if (op != null)
+            return op.loginUser(pwd);
+        return false;
     }
 
     public void addNewPassenger(int id_, String login_, String pwd_, String name_,
@@ -67,13 +71,13 @@ public class ServiceImpl {
     }
 
     public void addNewDriver(int id_, String login_, String pwd_, String name_, String email_, String phone_, float rating_) throws
-        DBConnectionException {
+            DBConnectionException {
         Driver driver = new Driver(id_, login_, pwd_, name_, email_, phone_, rating_);
         driverRepository.save(driver);
     }
 
     public void addNewOperator(int id_, String login_, String pwd_, String name_, String email_, String phone_) throws
-        DBConnectionException {
+            DBConnectionException {
         Operator operator = new Operator(id_, login_, pwd_, name_, email_, phone_);
         operatorRepository.save(operator);
     }
@@ -152,7 +156,7 @@ public class ServiceImpl {
         Operator operator = operatorRepository.getOperatorByLogin(login).orElseThrow(() -> new HaveNotUserEx());
         Order or = orderRepository.findById(selectedOrder).orElseThrow(() -> new HaveNotOrderEx());
         //operator.appointOrder(selectedDriver, or);
-        or.setDriver((Driver) driverRepository.findById(selectedDriver).orElseThrow(() -> new HaveNotUserEx()));
+        or.setDriver( driverRepository.findById(selectedDriver).orElseThrow(() -> new HaveNotUserEx()));
         or.setOrderStatus(OrderStatus.APPOINTED);
         or.setOperator(operator);
     }
