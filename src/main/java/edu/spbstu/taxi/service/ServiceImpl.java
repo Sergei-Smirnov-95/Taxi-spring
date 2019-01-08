@@ -70,19 +70,20 @@ public class ServiceImpl {
         passengerRepository.save(pas);
     }
 
-    public void addNewDriver(int id_, String login_, String pwd_, String name_, String email_, String phone_, float rating_) throws
-            DBConnectionException {
+    public void addNewDriver(int id_, String login_, String pwd_, String name_,
+                             String email_, String phone_, float rating_) {
         Driver driver = new Driver(id_, login_, pwd_, name_, email_, phone_, rating_);
         driverRepository.save(driver);
     }
 
-    public void addNewOperator(int id_, String login_, String pwd_, String name_, String email_, String phone_) throws
-            DBConnectionException {
+    public void addNewOperator(int id_, String login_, String pwd_, String name_, String email_, String phone_) {
+        //TODO::Operator op = operatorRepository.getOperatorByLogin(login_).orElse();
         Operator operator = new Operator(id_, login_, pwd_, name_, email_, phone_);
         operatorRepository.save(operator);
     }
 
-    public void addNewOrder(String sourceAddr, String destAddr, String userLogin, LocalDate creationDate_) throws DBConnectionException, HaveNotUserEx {
+    public void addNewOrder(String sourceAddr, String destAddr, String userLogin,
+                            LocalDate creationDate_) throws HaveNotUserEx {
         Passenger pas = passengerRepository.getPassengerByLogin(userLogin).orElseThrow(() -> new HaveNotUserEx());
 
         Order or = new Order(sourceAddr, destAddr, pas, creationDate_);
@@ -156,7 +157,7 @@ public class ServiceImpl {
         Operator operator = operatorRepository.getOperatorByLogin(login).orElseThrow(() -> new HaveNotUserEx());
         Order or = orderRepository.findById(selectedOrder).orElseThrow(() -> new HaveNotOrderEx());
         //operator.appointOrder(selectedDriver, or);
-        or.setDriver( driverRepository.findById(selectedDriver).orElseThrow(() -> new HaveNotUserEx()));
+        or.setDriver(driverRepository.findById(selectedDriver).orElseThrow(() -> new HaveNotUserEx()));
         or.setOrderStatus(OrderStatus.APPOINTED);
         or.setOperator(operator);
     }
