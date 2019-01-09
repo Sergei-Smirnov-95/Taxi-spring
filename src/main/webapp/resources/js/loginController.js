@@ -70,7 +70,6 @@ function LoginController($scope, $http, UserService, InfoShareService) {
             user.login = $scope.loginReg;
             user.name = $scope.name;
             user.surname = $scope.surname;
-            user.patronymic = $scope.patronymic;
             user.phone = $scope.phone;
             user.role = $scope.role;
             user.email = $scope.email;
@@ -79,7 +78,6 @@ function LoginController($scope, $http, UserService, InfoShareService) {
                 $scope.loginReg = "";
                 $scope.name = "";
                 $scope.surname = "";
-                $scope.patronymic = "";
                 $scope.phone = "";
                 $scope.email = "";
                 $scope.role = "";
@@ -96,10 +94,6 @@ function LoginController($scope, $http, UserService, InfoShareService) {
     this.setRegister = function () {
         this.isRegister = !this.isRegister;
     };
-
-    $http.get('rest/enum/roles').success(function (roles) {
-        $scope.roles = roles;
-    })
 
 }
 

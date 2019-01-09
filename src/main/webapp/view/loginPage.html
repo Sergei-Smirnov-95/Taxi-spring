@@ -22,10 +22,10 @@
                     </div>
                     <div class="row">
                         <div class="cell">
-                            <button  ng-click="loginCtrl.signIn()" class="button">Sign in</button>
+                            <button ng-click="loginCtrl.signIn()" class="button">Sign in</button>
                         </div>
                         <div class="cell">
-                            <button  ng-click="loginCtrl.setRegister()" class="button">Sign up</button>
+                            <button ng-click="loginCtrl.setRegister()" class="button">Sign up</button>
                         </div>
                     </div>
                     <div ng-show="loginCtrl.isRegister" class="row">
@@ -37,13 +37,13 @@
                             <input ng-model="surname" class="input" placeholder="Surname"/>
                             <input ng-model="email" type="email" class="input" placeholder="E-mail"/>
                             <input ng-model="phone" class="input" placeholder="Phone number"/>
-                            <select ng-model="type" class="select" ng-model="role">
-                                <option disabled="disabled" selected="selected" value="">Select user role</option>
-                                <option value="0">Operator</option>
-                                <option value="1">Passenger</option>
-                                <option value="2">Driver</option>
-                            </select>
-                            <button ng-click="loginCtrl.registerUser()" ng-enter="loginCtrl.registerUser()" class="button">Sign up</button>
+                            <input type="radio" name="userType" ng-model="userType" value="operator" class="radio">Operator
+                            <input type="radio" name="userType" ng-model="userType" value="passenger" checked
+                                   class="radio">Passenger
+                            <input type="radio" name="userType" ng-model="userType" value="driver" class="radio">Driver
+                            <button ng-click="loginCtrl.registerUser()" ng-enter="loginCtrl.registerUser()"
+                                    class="button">Sign up
+                            </button>
                         </div>
                     </div>
                 </div>
