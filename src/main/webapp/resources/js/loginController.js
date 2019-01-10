@@ -1,13 +1,7 @@
 function InfoShareService() {
     var user = {};
-    var receipt = {};
     return {
-        setReceipt: function (value) {
-            receipt = value;
-        },
-        getReceipt: function () {
-            return receipt;
-        },
+
         setUser: function (value) {
             user = value;
         },
@@ -29,12 +23,12 @@ function LoginController($scope, $http, UserService, InfoShareService) {
         } else if (!$scope.passwd) {
             alert("Enter password");
         } else {
-            $http.get('rest/user/' + $scope.login + '/authenticate?passwd=' + $scope.passwd)
+            $http.get('rest/' + $scope.userType + '/' + $scope.login + '/authenticate?passwd=' + $scope.passwd)
                 .then(function (response) {
                     if (response.data.toString() === "true") {
-                        UserService.get({login:$scope.login}, function (data) {
+                        UserService.get({login:$scope.login, userType: $scope.userType}, function (data) {
                             InfoShareService.setUser(data);
-                            window.location.href = '#/user/' + $scope.login;
+                            window.location.href = '#/' + $scope.userType + '/' + $scope.login;//TODO::true redirect to users page???
                         });
                     } else {
                         alert("Incorrect login or password");
@@ -71,16 +65,15 @@ function LoginController($scope, $http, UserService, InfoShareService) {
             user.name = $scope.name;
             user.surname = $scope.surname;
             user.phone = $scope.phone;
-            user.role = $scope.role;
             user.email = $scope.email;
+            user.role = $scope.uerType;
             user.password = $scope.password1;
-            user.$save({login:$scope.loginReg}, function () {
+            user.$save({login:$scope.loginReg}, function () {//TODO:: true POST
                 $scope.loginReg = "";
                 $scope.name = "";
                 $scope.surname = "";
                 $scope.phone = "";
                 $scope.email = "";
-                $scope.role = "";
                 $scope.password1 = "";
                 $scope.password2 = "";
                 this.isRegister = false;

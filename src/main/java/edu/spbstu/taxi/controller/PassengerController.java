@@ -16,10 +16,10 @@ public class PassengerController {
     ServiceImpl service;
 
     @RequestMapping("rest/passenger/{login}/authenticate")
-    public boolean authenticate(@PathVariable String login, @RequestParam("passwd") String passwd) {
+    public String authenticate(@PathVariable String login, @RequestParam("passwd") String passwd) {
         if (service.authenticate(login, passwd) != 1)
-            return false;
-        return true;
+            return "false";
+        return "true";
     }
 
     @RequestMapping("rest/passenger/{login}/new_order")

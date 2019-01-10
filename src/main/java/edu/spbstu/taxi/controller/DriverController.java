@@ -13,10 +13,10 @@ public class DriverController {
     ServiceImpl service;
 
     @RequestMapping("rest/driver/{login}/authenticate")
-    public boolean authenticate(@PathVariable String login, @RequestParam("passwd") String passwd) {
+    public String authenticate(@PathVariable String login, @RequestParam("passwd") String passwd) {
         if (service.authenticate(login, passwd) != 2)
-            return false;
-        return true;
+            return "false";
+        return "true";
     }
 
 }
