@@ -9,11 +9,6 @@ app.config(['$routeProvider', function($routeProvider){
             controller: 'LoginController',
             controllerAs: 'loginCtrl'
         })
-        .when('/user/:login', {
-            templateUrl: 'view/infoPage.html',
-            controller: 'InfoController',
-            controllerAs: 'infoCtrl'
-         })
         .otherwise(
             { redirectTo: '/'}
         );

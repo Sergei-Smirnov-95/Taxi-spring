@@ -1,12 +1,10 @@
 package edu.spbstu.taxi.controller;
 
 import edu.spbstu.taxi.Exceptions.HaveNotUserEx;
+import edu.spbstu.taxi.entity.Passenger;
 import edu.spbstu.taxi.service.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -23,7 +21,7 @@ public class PassengerController {
     }
 
     @RequestMapping("rest/passenger/{login}/new_order")
-    public boolean newOrder(@PathVariable String login, @RequestParam("srsAddr") String srcAddr,
+    public boolean newOrder(@PathVariable String login, @RequestParam("srsAddr") String srcAddr,//TODO:: addr in query???? move to body
                             @RequestParam("dstAddr") String dstAddr) {
         try {
             service.addNewOrder(srcAddr, dstAddr, login, LocalDate.now());
@@ -34,13 +32,9 @@ public class PassengerController {
         return true;
     }
 
-    @RequestMapping("rest/passenger/{login}/new")
-    public void newPassenger(@PathVariable String login,
-                            @RequestParam("passwd") String passwd,
-                            @RequestParam("name") String name,
-                            @RequestParam("email") String email,
-                            @RequestParam("phone") String phone) {
-        service.addNewPassenger(1, login, passwd, name, email, phone);
+    @RequestMapping(value="rest/passenger/{login}", method = RequestMethod.POST)
+    public void newPassenger(@PathVariable String login, @RequestBody Passenger passenger) {
+        service.addNewPassenger(passenger);
     }
 
 }

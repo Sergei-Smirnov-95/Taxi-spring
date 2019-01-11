@@ -64,21 +64,23 @@ public class ServiceImpl {
         return false;
     }
 
-    public void addNewPassenger(int id_, String login_, String pwd_, String name_,
-                                String email_, String phone_) {
-        Passenger pas = new Passenger(id_, login_, pwd_, name_, email_, phone_);
-        passengerRepository.save(pas);
+    public void addNewPassenger(Passenger passenger){//(int id_, String login_, String pwd_, String name_,
+                                //String email_, String phone_) {
+        //Passenger pas = new Passenger(id_, login_, pwd_, name_, email_, phone_);
+        //TODO::Passenger pass = passengerRepository.getPassengerByLogin().
+        passengerRepository.save(passenger);
     }
 
-    public void addNewDriver(int id_, String login_, String pwd_, String name_,
-                             String email_, String phone_, float rating_) {
-        Driver driver = new Driver(id_, login_, pwd_, name_, email_, phone_, rating_);
+    public void addNewDriver(Driver driver){//int id_, String login_, String pwd_, String name_,
+                             //String email_, String phone_, float rating_) {
+        //Driver driver = new Driver(id_, login_, pwd_, name_, email_, phone_, rating_);
+        // TODO::Driver dr = driver Repository.ge
         driverRepository.save(driver);
     }
 
-    public void addNewOperator(int id_, String login_, String pwd_, String name_, String email_, String phone_) {
+    public void addNewOperator(Operator operator){//int id_, String login_, String pwd_, String name_, String email_, String phone_) {
         //TODO::Operator op = operatorRepository.getOperatorByLogin(login_).orElse();
-        Operator operator = new Operator(id_, login_, pwd_, name_, email_, phone_);
+        //Operator operator = new Operator(id_, login_, pwd_, name_, email_, phone_);
         operatorRepository.save(operator);
     }
 
@@ -127,9 +129,10 @@ public class ServiceImpl {
         if (!driver.acceptRequest(or)) {
             throw new HaveNotUserEx();
         }
+        declineOther(driverLogin);
     }
 
-    public void declineOther(String login) throws DBConnectionException, HaveNotUserEx, HaveNotOrderEx {
+    public void declineOther(String login) throws HaveNotUserEx, HaveNotOrderEx {
         Driver driver = driverRepository.getDriverByLogin(login).orElseThrow(() -> new HaveNotUserEx());
         List<Order> or = driver.getAppointedList(orderRepository.findAll());
         driver.declineOther(or);

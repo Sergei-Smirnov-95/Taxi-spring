@@ -10,6 +10,9 @@ function InfoShareService() {
         }
     };
 }
+function UserService($resource) {
+    return $resource('rest/:userType/:login', { login: '@login', userType: '@userType' });
+}
 
 function isEmpty(str) {
     return (!str || 0 === str.length);
@@ -68,7 +71,7 @@ function LoginController($scope, $http, UserService, InfoShareService) {
             user.email = $scope.email;
             user.role = $scope.uerType;
             user.password = $scope.password1;
-            user.$save({login:$scope.loginReg}, function () {//TODO:: true POST
+            user.$save({login:$scope.loginReg, userType: $scope.userType}, function () {//TODO:: true POST
                 $scope.loginReg = "";
                 $scope.name = "";
                 $scope.surname = "";
@@ -79,7 +82,6 @@ function LoginController($scope, $http, UserService, InfoShareService) {
                 this.isRegister = false;
             }.bind(this), function (error) {
                 alert(error.data.message);
-
             });
         }
     }.bind(this);
@@ -92,5 +94,6 @@ function LoginController($scope, $http, UserService, InfoShareService) {
 
 app
     .service('InfoShareService', InfoShareService)
+    .factory('UserService', UserService)
     .controller('LoginController', LoginController);
 
