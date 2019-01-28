@@ -11,7 +11,7 @@ function InfoShareService() {
     };
 }
 function UserService($resource) {
-    return $resource('rest/:userType/:login', { login: '@login', userType: '@userType' });
+    return $resource('rest/:userType/:login', {userType: '@userType',  login: '@login' });
 }
 
 function isEmpty(str) {
@@ -29,10 +29,10 @@ function LoginController($scope, $http, UserService, InfoShareService) {
             $http.get('rest/' + $scope.userType + '/' + $scope.login + '/authenticate?passwd=' + $scope.passwd)
                 .then(function (response) {
                     if (response.data.toString() === "true") {
-                        UserService.get({login:$scope.login, userType: $scope.userType}, function (data) {
-                            InfoShareService.setUser(data);
-                            window.location.href = '#/' + $scope.userType + '/' + $scope.login;//TODO::true redirect to users page???
-                        });
+                        //UserService.get({login:$scope.login, userType: $scope.userType}, function (data) {
+                            InfoShareService.setUser($scope.login);
+                            window.location.href = '#/' + $scope.userType;//TODO::true redirect to users page???
+                        //);
                     } else {
                         alert("Incorrect login or password");
                         $scope.login = "";
@@ -59,19 +59,17 @@ function LoginController($scope, $http, UserService, InfoShareService) {
         } else if (isEmpty($scope.phone)) {
             alert("Enter the phone number");
         } else if (isEmpty($scope.email)) {
-            alert("Enter the e-mail");
+            alert("Enter correct e-mail");
         } else if ($scope.password1 !== $scope.password2) {
             alert("Passwords should be equal");
         } else {
             var user = new UserService();
             user.login = $scope.loginReg;
             user.name = $scope.name;
-            user.surname = $scope.surname;
             user.phone = $scope.phone;
             user.email = $scope.email;
-            user.role = $scope.uerType;
-            user.password = $scope.password1;
-            user.$save({login:$scope.loginReg, userType: $scope.userType}, function () {//TODO:: true POST
+            user.pwd = $scope.password1;
+            user.$save({userType: $scope.userTypeReg, login: $scope.loginReg}, function () {
                 $scope.loginReg = "";
                 $scope.name = "";
                 $scope.surname = "";

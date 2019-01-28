@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
 <head>
-    <link rel='stylesheet' href='resources/css/bootstrap.min.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='resources/css/style.css' type='text/css' media='all'>
     <title>Taxi</title>
 </head>
 

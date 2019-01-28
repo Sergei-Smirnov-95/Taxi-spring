@@ -33,20 +33,17 @@ public class Operator extends User {
                 drl.add(item);
             }
         }
-        //drlist.clear();
         return drl;
     }
 
     public List<Order> getNewOrders(List<Order> orlist) {
         List<Order> orl = new ArrayList();
         for (Order or : orlist) {
-            //System.out.println(or.getOrderStatus());
             if (or.getOrderStatus().equals(OrderStatus.NEW) || (or.getOrderStatus().equals(OrderStatus.PROCESSING))) {
                 or.setOrderStatus(OrderStatus.PROCESSING);
                 orl.add(or);
             }
         }
-        //orlist.clear();
         return orl;
     }
 

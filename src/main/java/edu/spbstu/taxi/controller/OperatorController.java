@@ -8,7 +8,6 @@ import edu.spbstu.taxi.entity.Order;
 import edu.spbstu.taxi.service.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.util.List;
 
@@ -23,17 +22,17 @@ public class OperatorController {
             return "false";
         return "true";
     }
-    //TODO:ModelAndView mav...???
+
     @RequestMapping(value = "rest/operator/{login}", method = RequestMethod.POST)
     public void newOperator(@PathVariable String login, @RequestBody Operator op) {
        service.addNewOperator(op);
     }
-/*
-    @RequestMapping(value = "rest/operator/{login}", method = RequestMethod.GET)
-    public void newOperator(@PathVariable String login) {
-        service.findOperatorByLogin(login).orElseThrow(() -> new...//???
-    }
-*/
+
+    /*@RequestMapping(value = "rest/operator/{login}", method = RequestMethod.GET)
+    public Operator getOperator(@PathVariable String login) {
+        service.findOperatorByLogin(login).orElseThrow(() -> new.. .//???
+    }*/
+
 
     @GetMapping("rest/operator/{login}/drivers")
     public @ResponseBody

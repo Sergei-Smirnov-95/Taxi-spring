@@ -10,7 +10,6 @@ CREATE TABLE `User` (
 	`email` VARCHAR(255) NOT NULL,
 	`phone` VARCHAR(255) NOT NULL,
 	`authenticated` BOOLEAN NOT NULL,
-	`isBusy` BOOLEAN NOT NULL,
 	`rating` FLOAT NOT NULL,
 	`TypeUser` INT NOT NULL,
 	PRIMARY KEY (`id`)

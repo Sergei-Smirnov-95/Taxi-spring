@@ -1,0 +1,3 @@
+function OperatorController($scope, $http){
+
+}

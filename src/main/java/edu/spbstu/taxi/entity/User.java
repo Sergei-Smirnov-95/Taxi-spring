@@ -12,7 +12,7 @@ import javax.persistence.*;
         discriminatorType = DiscriminatorType.INTEGER)
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String login;
     private String pwd;
@@ -32,7 +32,6 @@ public class User {
         login = login_;
         name = name_;
         email = email_;
-        authenticated = false;
         phone = phone_;
         pwd = pwd_;
         authenticated = authenticated_;

@@ -1,7 +1,7 @@
 <div data-gjs="navbar" class="navbar">
     <div class="navbar-container">
         <nav data-gjs="navbar-menu" class="navbar-menu">
-            <a ng-href="http://grapesjs.com/demo.html#" data-highlightable="1" class="navbar-menu-link">Login</a>
+            <a ng-href="http://grapesjs.com/demo.html#" data-highlightable="1" class="navbar-menu-link">Source</a>
         </nav>
     </div>
 </div>
@@ -44,10 +44,10 @@
                             <input ng-model="surname" class="input" placeholder="Surname"/>
                             <input ng-model="email" type="email" class="input" placeholder="E-mail"/>
                             <input ng-model="phone" class="input" placeholder="Phone number"/>
-                            <input type="radio" name="userType" ng-model="userTypeReg" value="operator" class="radio">Operator
-                            <input type="radio" name="userType" ng-model="userTypeReg" value="passenger" checked
+                            <input type="radio" name="userTypeReg" ng-model="userTypeReg" value="operator" class="radio">Operator
+                            <input type="radio" name="userTypeReg" ng-model="userTypeReg" value="passenger" checked
                                    class="radio">Passenger
-                            <input type="radio" name="userType" ng-model="userTypeReg" value="driver" class="radio">Driver
+                            <input type="radio" name="userTypeReg" ng-model="userTypeReg" value="driver" class="radio">Driver
                             <button ng-click="loginCtrl.registerUser()" ng-enter="loginCtrl.registerUser()"
                                     class="button">Sign up
                             </button>

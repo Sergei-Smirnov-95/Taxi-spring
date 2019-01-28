@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div data-gjs="navbar" class="navbar">
+    <div class="navbar-container">
+        <nav data-gjs="navbar-menu" class="navbar-menu">
+            <a ng-href="http://grapesjs.com/demo.html#" data-highlightable="1" class="navbar-menu-link">Source</a>
+        </nav>
+    </div>
+</div>
+<form class="form">
+    <div class="row">
+        <div class="cell">
+            <div class="cell">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="th">OrderId</th>
+                        <th class="th">SourceAddr</th>
+                        <th class="th">DestAddr</th>
 
-</body>
-</html>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="tr" ng-repeat="order in orders" ng-click="opCtrl.select(order)">
+                        <td class="td">{{order.id}}</td>
+                        <td class="td">{{order.sourceAddr}}</td>
+                        <td class="td">{{order.destAddr}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
