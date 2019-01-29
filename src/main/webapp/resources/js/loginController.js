@@ -29,10 +29,8 @@ function LoginController($scope, $http, UserService, InfoShareService) {
             $http.get('rest/' + $scope.userType + '/' + $scope.login + '/authenticate?passwd=' + $scope.passwd)
                 .then(function (response) {
                     if (response.data.toString() === "true") {
-                        //UserService.get({login:$scope.login, userType: $scope.userType}, function (data) {
                             InfoShareService.setUser($scope.login);
                             window.location.href = '#/' + $scope.userType;//TODO::true redirect to users page???
-                        //);
                     } else {
                         alert("Incorrect login or password");
                         $scope.login = "";

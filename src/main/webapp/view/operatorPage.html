@@ -19,7 +19,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="tr" ng-repeat="order in orders" ng-click="opCtrl.select(order)">
+                    <tr class="tr" ng-repeat="order in orders" ng-click="OperatorCtrl.select(order)">
                         <td class="td">{{order.id}}</td>
                         <td class="td">{{order.sourceAddr}}</td>
                         <td class="td">{{order.destAddr}}</td>
@@ -27,6 +27,14 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell">
+            <button class="button" ng-click="OperatorCtrl.update()">Update</button>
+        </div>
+        <div class="cell">
+            <button class="button" ng-click="OperatorCtrl.newOrder()">New order</button>
         </div>
     </div>
 </form>

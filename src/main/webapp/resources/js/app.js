@@ -11,9 +11,16 @@ app.config(['$routeProvider', function($routeProvider){
         })
         .when('/operator', {
             templateUrl: 'view/operatorPage.html',
-            controller: 'OperatorController',
-            controllerAs: 'opCtrl'
+            controller: 'OperatorCtrl',
         })
+        .when('/passenger', {
+            templateUrl: 'view/passengerPage.html',
+            controller: 'PassengerCtrl',
+        })
+        .when('/driver', {
+                    templateUrl: 'view/driverPage.html',
+                    controller: 'DriverCtrl',
+                })
         .otherwise(
             { redirectTo: '/'}
         );

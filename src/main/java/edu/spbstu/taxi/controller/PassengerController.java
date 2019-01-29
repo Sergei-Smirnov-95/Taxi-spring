@@ -21,7 +21,7 @@ public class PassengerController {
     }
 
     @RequestMapping("rest/passenger/{login}/new_order")
-    public boolean newOrder(@PathVariable String login, @RequestParam("srsAddr") String srcAddr,//TODO:: addr in query???? move to body
+    public boolean newOrder(@PathVariable String login, @RequestParam("srcAddr") String srcAddr,//TODO:: addr in query???? move to body
                             @RequestParam("dstAddr") String dstAddr) {
         try {
             service.addNewOrder(srcAddr, dstAddr, login, LocalDate.now());

@@ -13,7 +13,9 @@
 
 <script src="resources/js/app.js"></script>
 <script src="resources/js/loginController.js"></script>
-
+<script src="resources/js/operatorController.js"></script>
+<script src="resources/js/driverController.js"></script>
+<script src="resources/js/passengerController.js"></script>
 
 <div ng-view></div>
 </body>

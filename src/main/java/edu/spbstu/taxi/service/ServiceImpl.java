@@ -64,23 +64,18 @@ public class ServiceImpl {
         return false;
     }
 
-    public void addNewPassenger(Passenger passenger){//(int id_, String login_, String pwd_, String name_,
-                                //String email_, String phone_) {
-        //Passenger pas = new Passenger(id_, login_, pwd_, name_, email_, phone_);
+    public void addNewPassenger(Passenger passenger){
         //TODO::Passenger pass = passengerRepository.getPassengerByLogin().
         passengerRepository.save(passenger);
     }
 
-    public void addNewDriver(Driver driver){//int id_, String login_, String pwd_, String name_,
-                             //String email_, String phone_, float rating_) {
-        //Driver driver = new Driver(id_, login_, pwd_, name_, email_, phone_, rating_);
+    public void addNewDriver(Driver driver){
         // TODO::Driver dr = driver Repository.ge
         driverRepository.save(driver);
     }
 
-    public void addNewOperator(Operator operator){//int id_, String login_, String pwd_, String name_, String email_, String phone_) {
+    public void addNewOperator(Operator operator){
         //TODO::Operator op = operatorRepository.getOperatorByLogin(login_).orElse();
-        //Operator operator = new Operator(id_, login_, pwd_, name_, email_, phone_);
         operatorRepository.save(operator);
     }
 
