@@ -9,8 +9,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -42,11 +44,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return dataSource;
     }
 
+
     public Properties additionalProreties() {
         Properties properties = new Properties();
+        properties.setProperty("spring.jpa.properties.hibernate.dialect",env.getRequiredProperty("spring.jpa.properties.hibernate.dialect"));
+        properties.setProperty("spring.jpa.show-sql","true");
         return properties;
     }
-
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -54,12 +58,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ViewResolver getViewResolver(){
+    public ViewResolver getViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/view/");
         resolver.setSuffix(".jsp");
         return resolver;
     }
+
     @Bean
     public EntityManagerFactory entityManagerFactory() {
 
@@ -77,12 +82,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return factory.getObject();
     }
 
-/*
     @Bean
-    public ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        return modelMapper;
+    public PlatformTransactionManager transactionManager() {
+
+        JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(entityManagerFactory());
+        return txManager;
     }
-*/
+
 }

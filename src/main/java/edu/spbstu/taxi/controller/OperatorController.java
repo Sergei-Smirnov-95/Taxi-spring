@@ -9,6 +9,7 @@ import edu.spbstu.taxi.service.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -50,9 +51,9 @@ public class OperatorController {
         try {
             return service.getNewOrders(login);
         } catch (HaveNotOrderEx ex){
-            return null;
+            return new ArrayList<Order>();
         } catch (HaveNotUserEx ex){
-            return null; //TODO::new exception- have not user ex!!!
+            return new ArrayList<Order>();
         }
     }
 

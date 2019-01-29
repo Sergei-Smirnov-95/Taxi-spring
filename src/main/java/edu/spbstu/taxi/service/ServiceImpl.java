@@ -117,6 +117,15 @@ public class ServiceImpl {
         }
         return orlist;
     }
+    public List<Order> getOrders(String login) throws HaveNotUserEx, HaveNotOrderEx {
+        List<Order> orlist = orderRepository.findAll();
+        Passenger pass = passengerRepository.getPassengerByLogin(login).orElseThrow(() -> new HaveNotUserEx());
+        orlist = pass.getOrders(orlist);
+        if (orlist.isEmpty()) {
+            throw new HaveNotOrderEx();
+        }
+        return orlist;
+    }
 
     public void acceptRequest(int OrderId, String driverLogin) throws HaveNotUserEx, HaveNotOrderEx {
         Driver driver = driverRepository.getDriverByLogin(driverLogin).orElseThrow(() -> new HaveNotUserEx());

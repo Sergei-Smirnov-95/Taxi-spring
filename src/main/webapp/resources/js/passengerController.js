@@ -1,16 +1,16 @@
-function PasengerService($resource) {
-    return $resource('rest/passenger/:login/new_order', { login: '@login' });
+function PassengerService($resource) {
+    return $resource('rest/passenger/:login/:TypeReq', { login: '@login',TypeReq: '@TypeReq' });
 }
 
 function isEmpty(str) {
     return (!str || 0 === str.length);
 }
 
-function PassCtrl($scope, $http, PassengerService, InfoShareService){
-    this.isRegister = false;
+function PassengerCtrl($scope, $http, PassengerService, InfoShareService){
+    this.needNew = false;
     $scope.login = InfoShareService.getUser();
-    alert("start gtting info");
-    OperatorService.query({login:$scope.login, reqType: "orders"}, function (value){$scope.orders = value;});
+    //alert("start gtting info");
+    PassengerService.query({login:$scope.login, TypeReq:"orders"}, function (value){$scope.orders = value;});
 
 
     this.newOrder = function(){
@@ -20,20 +20,21 @@ function PassCtrl($scope, $http, PassengerService, InfoShareService){
             alert("Enter destination address, please!");
         } else{
             alert("We add your order!");
+            PassengerService.query({login:$scope.login, TypeReq:"new_order"}, function (value){$scope.orders = value;});
             /*InfoShareService.setUser($scope.login);
             window.location.href = '#/' + $scope.userType;*/
 
         }
 
-    }
+    };
 
-    this.register = function() {
-        this.isRegister = !this.isRegister;
-    }
+    this.showNew = function(){
+        this.needNew = !this.needNew;
+    };
 }
 
 
 app
     .service('InfoShareService', InfoShareService)
     .factory('PassengerService', PassengerService)
-    .controller('PassCtrl', PassCtrl);
+    .controller('PassengerCtrl', PassengerCtrl);

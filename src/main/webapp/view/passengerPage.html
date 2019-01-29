@@ -38,18 +38,31 @@
         <div class="cell">
         </div>
         <div class="cell">
-            <button class="button" ng-click="PassCtrl.register()">New order</button>
+            <button class="button" ng-click="PassengerCtrl.showNew()">New order</button>
         </div>
         <div class="cell">
         </div>
     </div>
-    <div ng-show="PassCtrl.isRegister" class="row">
+    <div class="cell">
+    </div>
+    <div class="cell">
+
+    <div ng-show="PassengerCtrl.needNew" class="row">
         <div class="cell">
-            <input ng-model="srcAddr" class="input" placeholder="Source Address"/>
-            <input ng-model="dstAddr" class="input" placeholder="Destination Address"/>
+            <div class="row">
+                <div class="cell">
+                    <input ng-model="srcAddr" class="input" placeholder="Source Address"/>
+                    <input ng-model="dstAddr" class="input" placeholder="Destination Address"/>
+                </div>
+            </div>
+            <div class="row">
+              <div class="cell">
+                  <button class="button" ng-click="PassengerCtrl.newOrder()">New order</button>
+              </div>
+            </div>
         </div>
-        <div class="cell">
-            <button class="button" ng-click="PassCtrl.newOrder()">New order</button>
-        </div>
+    </div>
+    </div>
+    <div class="cell">
     </div>
 </form>

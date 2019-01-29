@@ -4,18 +4,17 @@ function OperatorService($resource) {
 
 function OperatorCtrl($scope, $http, OperatorService, InfoShareService){
     $scope.login = InfoShareService.getUser();
-    alert("start gtting info");
     OperatorService.query({login:$scope.login, reqType: "orders"}, function (value){$scope.orders = value;});
     $scope.drivers = OperatorService.query({login:$scope.login, reqType: "drivers"});
 
     this.select = function(order){
         alert("ok");
-    }
+    };
     this.update = function(){
         alert("update");
         OperatorService.query({login:$scope.login, reqType: "orders"}, function (value){$scope.orders = value;});
         $scope.drivers = OperatorService.query({login:$scope.login, reqType: "drivers"});
-    }
+    };
 }
 
 

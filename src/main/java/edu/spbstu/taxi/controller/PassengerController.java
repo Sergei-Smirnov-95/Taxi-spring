@@ -1,12 +1,16 @@
 package edu.spbstu.taxi.controller;
 
+import edu.spbstu.taxi.Exceptions.HaveNotOrderEx;
 import edu.spbstu.taxi.Exceptions.HaveNotUserEx;
+import edu.spbstu.taxi.entity.Order;
 import edu.spbstu.taxi.entity.Passenger;
 import edu.spbstu.taxi.service.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class PassengerController {
@@ -30,6 +34,18 @@ public class PassengerController {
             return false;
         }
         return true;
+    }
+
+    @GetMapping("rest/passenger/{login}/orders")
+    public @ResponseBody
+    List<Order> getOrders(@PathVariable String login){
+        try {
+            return service.getOrders(login);
+        } catch (HaveNotOrderEx ex){
+            return new ArrayList<Order>();
+        } catch (HaveNotUserEx ex){
+            return new ArrayList<Order>();
+        }
     }
 
     @RequestMapping(value="rest/passenger/{login}", method = RequestMethod.POST)
