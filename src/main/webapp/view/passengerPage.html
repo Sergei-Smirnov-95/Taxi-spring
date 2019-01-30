@@ -9,6 +9,8 @@
     <div class="row">
         <div class="cell">
             <div class="cell">
+            </div>
+            <div class="cell">
                 <table class="table">
                     <thead>
                     <tr>
@@ -26,43 +28,37 @@
                     <tbody>
                     <tr class="tr" ng-repeat="order in orders">
                         <td class="td">{{order.id}}</td>
-                        <td class="td">{{order.sourceAddr}}</td>
-                        <td class="td">{{order.destAddr}}</td>
+                        <td class="td">{{order.sourceAddress}}</td>
+                        <td class="td">{{order.destinationAddress}}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+            <div class="cell">
+            </div>
         </div>
+
     </div>
     <div class="row">
         <div class="cell">
         </div>
         <div class="cell">
-            <button class="button" ng-click="PassengerCtrl.showNew()">New order</button>
-        </div>
-        <div class="cell">
-        </div>
-    </div>
-    <div class="cell">
-    </div>
-    <div class="cell">
+            <!--   <button class="button" ng-click="PassengerCtrl.showNew()">Show new order form</button>-->
+          </div>
+          <div class="cell">
+          </div>
+      </div>
 
-    <div ng-show="PassengerCtrl.needNew" class="row">
+      <div class="row">
+     <!--ng-show="PassengerCtrl.needNew" -->
         <div class="cell">
-            <div class="row">
-                <div class="cell">
-                    <input ng-model="srcAddr" class="input" placeholder="Source Address"/>
-                    <input ng-model="dstAddr" class="input" placeholder="Destination Address"/>
-                </div>
-            </div>
-            <div class="row">
-              <div class="cell">
-                  <button class="button" ng-click="PassengerCtrl.newOrder()">New order</button>
-              </div>
-            </div>
         </div>
-    </div>
-    </div>
-    <div class="cell">
+        <div  class="cell">
+                <input ng-model="srcAddr" class="input" placeholder="Source Address"/>
+                <input ng-model="dstAddr" class="input" placeholder="Destination Address"/>
+              <button class="button" ng-click="PassengerCtrl.newOrder()">New order</button>
+        </div>
+        <div class="cell">
+        </div>
     </div>
 </form>

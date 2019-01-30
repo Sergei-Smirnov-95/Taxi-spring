@@ -29,6 +29,7 @@ function PassengerCtrl($scope, $http, PassengerService, InfoShareService){
     };
 
     this.showNew = function(){
+    alert("selected new");
         this.needNew = !this.needNew;
     };
 }

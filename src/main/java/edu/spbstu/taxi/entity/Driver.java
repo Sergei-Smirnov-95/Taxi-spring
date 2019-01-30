@@ -3,6 +3,7 @@ package edu.spbstu.taxi.entity;
 import edu.spbstu.taxi.Exceptions.HaveNotOrderEx;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ import java.util.List;
 @DiscriminatorValue("2")
 @Data
 public class Driver extends User {
-    //@Column(name = "isBusy")
-    private boolean busy;
+    @Column(name = "isBusy")
+    private boolean busy = false;
     private float rating;
 
     public Driver() {

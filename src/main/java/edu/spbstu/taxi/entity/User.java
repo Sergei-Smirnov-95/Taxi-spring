@@ -22,7 +22,6 @@ public class User {
     private boolean authenticated;
     @Column(name="TypeUser",insertable=false, updatable=false)
     private int TypeUser;
-
     public User() {
     }
 

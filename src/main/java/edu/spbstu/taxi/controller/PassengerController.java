@@ -38,9 +38,9 @@ public class PassengerController {
 
     @GetMapping("rest/passenger/{login}/orders")
     public @ResponseBody
-    List<Order> getOrders(@PathVariable String login){
+    List<Order> getOrdersByPass(@PathVariable String login){
         try {
-            return service.getOrders(login);
+            return service.getOrdersByPassenger(login);
         } catch (HaveNotOrderEx ex){
             return new ArrayList<Order>();
         } catch (HaveNotUserEx ex){

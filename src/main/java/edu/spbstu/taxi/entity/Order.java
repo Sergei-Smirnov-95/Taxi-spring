@@ -6,11 +6,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "order")
+@Table(name = "Orders")
 @Data
 public class Order {
     @Id
-    @GeneratedValue//(strategy = GenerationType.AUTO)
+    //@GeneratedValue//(strategy = GenerationType.AUTO)
     private int id;
     @Column(name = "sourceAddr")
     private String sourceAddress;

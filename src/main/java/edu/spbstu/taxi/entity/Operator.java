@@ -38,6 +38,8 @@ public class Operator extends User {
 
     public List<Order> getNewOrders(List<Order> orlist) {
         List<Order> orl = new ArrayList();
+        if(orlist.isEmpty())
+            return orl;
         for (Order or : orlist) {
             if (or.getOrderStatus().equals(OrderStatus.NEW) || (or.getOrderStatus().equals(OrderStatus.PROCESSING))) {
                 or.setOrderStatus(OrderStatus.PROCESSING);

@@ -24,7 +24,7 @@ public class DriverController {
 
     //TODO::new driver
     @RequestMapping(value="rest/driver/{login}", method = RequestMethod.POST)
-    public void newPassenger(@PathVariable String login, @RequestBody Driver driver) {
+    public void newDriver(@PathVariable String login, @RequestBody Driver driver) {
         service.addNewDriver(driver);
     }
 
