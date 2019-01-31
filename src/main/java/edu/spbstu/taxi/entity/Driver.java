@@ -30,7 +30,7 @@ public class Driver extends User {
     public List<Order> getOrderList(List<Order> orderList) throws HaveNotOrderEx {
         List<Order> OrderList = new ArrayList();
         for (Order order : orderList) {
-            if (order.getDriver().getId() == this.getId() && order.getOrderStatus() != OrderStatus.APPOINTED)
+            if (null!= order.getDriver()&&order.getDriver().getId() == this.getId() && order.getOrderStatus() != OrderStatus.APPOINTED)
                 OrderList.add(order);
         }
         if (OrderList == null)
@@ -41,14 +41,14 @@ public class Driver extends User {
     public List<Order> getAppointedList(List<Order> orderList) throws HaveNotOrderEx {
         List<Order> appointedOrderList = new ArrayList();
         for (Order order : orderList) {
-            if (order.getDriver().getId() == this.getId() && order.getOrderStatus() == OrderStatus.APPOINTED)
+            if (null!= order.getDriver()&& order.getDriver().getId() == this.getId() && order.getOrderStatus() == OrderStatus.APPOINTED)
                 appointedOrderList.add(order);
         }
         if (appointedOrderList == null)
             throw new HaveNotOrderEx();
         return appointedOrderList;
     }
-
+/*
     public boolean acceptRequest(Order order) {
         if (order.setOrderStatus(OrderStatus.ACCEPTED)) {
             this.setBusy(true);
@@ -73,7 +73,7 @@ public class Driver extends User {
                 throw new HaveNotOrderEx();
             }
         }
-    }
+    }*/
 /*
     public boolean acceptOrder(Order order){
         if(order.setOrderStatus(OrderStatus.ACCEPTED)) {

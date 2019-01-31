@@ -47,8 +47,8 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     public Properties additionalProreties() {
         Properties properties = new Properties();
-        properties.setProperty("spring.jpa.properties.hibernate.dialect",env.getRequiredProperty("spring.jpa.properties.hibernate.dialect"));
-        properties.setProperty("spring.jpa.show-sql","true");
+        /*properties.setProperty("spring.jpa.properties.hibernate.dialect",env.getRequiredProperty("spring.jpa.properties.hibernate.dialect"));
+        properties.setProperty("spring.jpa.show-sql","true");*/
         return properties;
     }
 

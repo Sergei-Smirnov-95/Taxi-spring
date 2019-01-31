@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +26,10 @@ public class PassengerController {
     }
 
     @RequestMapping("rest/passenger/{login}/new_order")
-    public boolean newOrder(@PathVariable String login, @RequestParam("srcAddr") String srcAddr,//TODO:: addr in query???? move to body
+    public boolean newOrder(@PathVariable String login, @RequestParam("srcAddr") String srcAddr,
                             @RequestParam("dstAddr") String dstAddr) {
         try {
-            service.addNewOrder(srcAddr, dstAddr, login, LocalDate.now());
+            service.addNewOrder(srcAddr, dstAddr, login, LocalDateTime.now());
         }
         catch (HaveNotUserEx ex){
             return false;

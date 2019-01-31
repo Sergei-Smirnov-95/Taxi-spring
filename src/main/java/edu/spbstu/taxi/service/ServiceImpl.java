@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,7 +81,7 @@ public class ServiceImpl {
     }
 
     public void addNewOrder(String sourceAddr, String destAddr, String userLogin,
-                            LocalDate creationDate_) throws HaveNotUserEx {
+                            LocalDateTime creationDate_) throws HaveNotUserEx {
         Passenger pas = passengerRepository.getPassengerByLogin(userLogin).orElseThrow(() -> new HaveNotUserEx());
 
         Order or = new Order(sourceAddr, destAddr, pas, creationDate_);
@@ -112,6 +113,11 @@ public class ServiceImpl {
         List<Order> orlist = orderRepository.findAll();
         Operator operator = operatorRepository.getOperatorByLogin(login).orElseThrow(() -> new HaveNotUserEx());
         orlist = operator.getNewOrders(orlist);
+        for (Order or:orlist
+             ) {
+            operator.handleOrder(or);
+            orderRepository.saveAndFlush(or);
+        }
         if (orlist.isEmpty()) {
             throw new HaveNotOrderEx();
         }
@@ -133,27 +139,42 @@ public class ServiceImpl {
     public void acceptRequest(int OrderId, String driverLogin) throws HaveNotUserEx, HaveNotOrderEx {
         Driver driver = driverRepository.getDriverByLogin(driverLogin).orElseThrow(() -> new HaveNotUserEx());
         Order or = orderRepository.findById(OrderId).orElseThrow(() -> new HaveNotOrderEx());
-        if (!driver.acceptRequest(or)) {
+        if (or.setOrderStatus(OrderStatus.ACCEPTED)) {
+            driver.setBusy(true);
+            or.setDriver(driver);
+        } else {
             throw new HaveNotUserEx();
         }
+        driverRepository.saveAndFlush(driver);
+        orderRepository.saveAndFlush(or);
         declineOther(driverLogin);
     }
 
     public void declineOther(String login) throws HaveNotUserEx, HaveNotOrderEx {
         Driver driver = driverRepository.getDriverByLogin(login).orElseThrow(() -> new HaveNotUserEx());
         List<Order> or = driver.getAppointedList(orderRepository.findAll());
-        driver.declineOther(or);
+        //driver.declineOther(or);
         for (Order order : or) {
-            declineRequest(order.getId(), login);
+            if (!order.setOrderStatus(OrderStatus.DECLINED)) {
+                throw new HaveNotOrderEx();
+            }
         }
+        orderRepository.saveAll(or);
     }
 
     public void declineRequest(int order, String driverLogin) throws HaveNotUserEx, HaveNotOrderEx {
         Driver driver = driverRepository.getDriverByLogin(driverLogin).orElseThrow(() -> new HaveNotUserEx());
         Order or = orderRepository.findById(order).orElseThrow(() -> new HaveNotOrderEx());
-        if (!driver.declineRequest(or)) {
-            throw new HaveNotUserEx();
+        if (!or.setOrderStatus(OrderStatus.DECLINED)) {
+            throw new HaveNotOrderEx();
         }
+        or.setDriver(null);
+        List<Order> checkOrder = driver.getAppointedList(orderRepository.findAll());
+        if(checkOrder.size()==0){
+            driver.setBusy(false);
+        }
+        orderRepository.saveAndFlush(or);
+        driverRepository.saveAndFlush(driver);
     }
 
     public List<Driver> getAvailableDrivers(String login) throws HaveNotUserEx {
@@ -166,10 +187,13 @@ public class ServiceImpl {
     public void appointOrdertoDriver(int selectedOrder, int selectedDriver, String login) throws HaveNotUserEx, HaveNotOrderEx {
         Operator operator = operatorRepository.getOperatorByLogin(login).orElseThrow(() -> new HaveNotUserEx());
         Order or = orderRepository.findById(selectedOrder).orElseThrow(() -> new HaveNotOrderEx());
-        //operator.appointOrder(selectedDriver, or);
-        or.setDriver(driverRepository.findById(selectedDriver).orElseThrow(() -> new HaveNotUserEx()));
+        Driver dr = driverRepository.findById(selectedDriver).orElseThrow(() -> new HaveNotUserEx());
+        dr.setBusy(true);
+        or.setDriver(dr);
         or.setOrderStatus(OrderStatus.APPOINTED);
         or.setOperator(operator);
+        orderRepository.saveAndFlush(or);
+        driverRepository.saveAndFlush(dr);
     }
 
     public void setPayInfo(int dist, int time, int orderID) throws DBConnectionException, HaveNotOrderEx {

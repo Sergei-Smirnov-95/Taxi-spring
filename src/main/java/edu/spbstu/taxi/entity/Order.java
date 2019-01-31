@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Orders")
@@ -25,20 +26,18 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "operatorId")
     private Operator operator;
-    @Transient
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
-    //    private float rating;
-    private LocalDate creationDate;
-    private LocalDate executionDate;
+    private LocalDateTime creationDate;
+    private LocalDateTime executionDate;
     private boolean isPayed;
     @Transient
     private CostCalculation costCalculation;
 
-    public Order() {
-    }
+    public Order(){}
 
     public Order(String sourceAddress, String destinationAddress,
-                 Passenger passenger, LocalDate creationDate) {
+                 Passenger passenger, LocalDateTime creationDate) {
         this.sourceAddress = sourceAddress;
         this.destinationAddress = destinationAddress;
         this.passenger = passenger;
@@ -74,7 +73,7 @@ public class Order {
         isPayed = true;
     }
 
-    public boolean setExecutionDate(LocalDate executionDate) {
+    public boolean setExecutionDate(LocalDateTime executionDate) {
         //if(executionDate.isAfter(creationDate)) {
         this.executionDate = executionDate;
         return true;

@@ -57,9 +57,16 @@ public class OperatorController {
         }
     }
 
-    @RequestMapping(value = "rest/operator/{login}/accept",method = RequestMethod.PUT)
-    public void acceptOrder(@PathVariable String login, @RequestParam("OrID") int OrID,@RequestParam("DrID") int DrID) throws HaveNotOrderEx,HaveNotUserEx{
-        service.appointOrdertoDriver(OrID, DrID, login);
+    @GetMapping(value = "rest/operator/{login}/appoint")
+    public String appointOrder(@PathVariable String login, @RequestParam("OrID") int OrID,@RequestParam("DrID") int DrID) {
+        try {
+            service.appointOrdertoDriver(OrID, DrID, login);
+            return "true";
+        }catch (HaveNotOrderEx ex){
+            return "false";
+        }catch( HaveNotUserEx ex){
+            return "false";
+        }
     }
 
 }

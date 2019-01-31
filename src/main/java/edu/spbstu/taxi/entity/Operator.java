@@ -41,7 +41,7 @@ public class Operator extends User {
         if(orlist.isEmpty())
             return orl;
         for (Order or : orlist) {
-            if (or.getOrderStatus().equals(OrderStatus.NEW) || (or.getOrderStatus().equals(OrderStatus.PROCESSING))) {
+            if (or.getOrderStatus().equals(OrderStatus.DECLINED) || or.getOrderStatus().equals(OrderStatus.NEW) || or.getOrderStatus().equals(OrderStatus.PROCESSING)) {
                 or.setOrderStatus(OrderStatus.PROCESSING);
                 orl.add(or);
             }

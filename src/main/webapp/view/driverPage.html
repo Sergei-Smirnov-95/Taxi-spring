@@ -1,66 +1,76 @@
 <div data-gjs="navbar" class="navbar">
     <div class="navbar-container">
         <nav data-gjs="navbar-menu" class="navbar-menu">
-            <a ng-href="http://grapesjs.com/demo.html#" data-highlightable="1" class="navbar-menu-link">Source</a>
+            <a ng-href="#/login" class="navbar-menu-link">Log out</a>
         </nav>
     </div>
 </div>
 <form class="form">
     <div class="row">
-            <div class="cell">
-                <table class="table">
-                    <thead>
-                    <tr><th class="th"></th>
-                        <th class="th">recent orders</th>
-                        <th class="th"></th></tr>
-                    <tr>
-                        <th class="th">OrderId</th>
-                        <th class="th">SourceAddr</th>
-                        <th class="th">DestAddr</th>
+        <div class="cell">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="th"></th>
+                    <th class="th"><h3>recent orders</h3></th>
+                    <th class="th"></th>
+                </tr>
+                <tr>
+                    <th class="th">OrderId</th>
+                    <th class="th">SourceAddr</th>
+                    <th class="th">DestAddr</th>
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="tr" ng-repeat="order in orders">
-                        <td class="td">{{order.id}}</td>
-                        <td class="td">{{order.sourceAddr}}</td>
-                        <td class="td">{{order.destAddr}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="cell">
-                <table class="table">
-                    <thead>
-                    <tr><th class="th"></th>
-                        <th class="th">new orders</th>
-                        <th class="th"></th></tr>
-                    <tr>
-                        <th class="th">OrderId</th>
-                        <th class="th">SourceAddr</th>
-                        <th class="th">DestAddr</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr" ng-repeat="order in oldOrders">
+                    <td class="td">{{order.id}}</td>
+                    <td class="td">{{order.sourceAddress}}</td>
+                    <td class="td">{{order.destinationAddress}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="cell">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="th"></th>
+                    <th class="th"><h3>new orders</h3></th>
+                    <th class="th"></th>
+                </tr>
+                <tr>
+                    <th class="th">OrderId</th>
+                    <th class="th">SourceAddr</th>
+                    <th class="th">DestAddr</th>
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="tr" ng-repeat="order in newOrders" ng-click="DriverCtrl.select(order)">
-                        <td class="td">{{order.id}}</td>
-                        <td class="td">{{order.sourceAddr}}</td>
-                        <td class="td">{{order.destAddr}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr" ng-repeat="order in newOrders" ng-click="select(order.id)">
+                    <td class="td">{{order.id}}</td>
+                    <td class="td">{{order.sourceAddress}}</td>
+                    <td class="td">{{order.destinationAddress}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="cell">
+                    <button class="button" ng-click="update()">Update</button>
+                </div>
+                <div class="cell">
+                    <button class="button" ng-click="accept()">Accept</button>
+                </div>
+                <div class="cell">
+                    <button class="button" ng-click="decline()">Decline</button>
+                </div>
             </div>
+        </div>
     </div>
-    <div class="row">
+    <div ng-show="pay" class="row">
         <div class="cell">
-            <button class="button" ng-click="DriverCtrl.update()">Update</button>
-        </div>
-        <div class="cell">
-            <button class="button" ng-click="DriverCtrl.accept()">Accept</button>
-        </div>
-        <div class="cell">
-            <button class="button" ng-click="DriverCtrl.decline()">Decline</button>
+            <input ng-model="length" class="input" placeholder="Route length"/>
+            <input ng-model="time" class="input" placeholder="Waiting time"/>
         </div>
     </div>
 </form>

@@ -23,7 +23,7 @@ public class Passenger extends User {
 
     public Order createOrder(String sourceAddress, String destinationAddress) {
         Order order = new Order(sourceAddress, destinationAddress, this,
-                new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
         return order;
     }
 

@@ -1,28 +1,54 @@
 function DriverService($resource) {
-    return $resource('rest/driver/:login/:reqType', {reqType: '@reqType',  login: '@login' });
+    return $resource('rest/driver/:login/:reqType?orderID=:orderID',
+        {reqType: '@reqType',  login: '@login', orderID: '@orderID' });
 }
 
-function DriverCtrl($scope, $http, DriverrService, InfoShareService){
+function DriverCtrl($scope, $http, DriverService, InfoShareService){
     $scope.login = InfoShareService.getUser();
-    this.selected = false;
-    alert("start gtting info");
-    DriverService.query({login:$scope.login, reqType: "orders"}, function (value){$scope.orders = value;});
-    $scope.drivers = DriverService.query({login:$scope.login, reqType: "drivers"});
+    $scope.selected = false;
+    DriverService.query({login:$scope.login, reqType: "oldOrders"}, function (value){$scope.oldOrders = value;});
+    $scope.newOrders = DriverService.query({login:$scope.login, reqType: "newOrders"});
+    $scope.pay= false;
+    $scope.select = function(order){
+        $scope.selected = true;
+        $scope.order = order;
+        alert("Selected! Need to accept");
+    }
+    $scope.update = function(){
+        //alert("update");
+        DriverService.query({login:$scope.login, reqType: "oldOrders"}, function (value){$scope.oldOrders = value;});
+        $scope.newOrders = DriverService.query({login:$scope.login, reqType: "newOrders"});
 
-    this.select = function(order){
-        this.selected = true;
-        this.order = order;
-        alert("need accept");
     }
-    this.update = function(){
-        alert("update");
-        DriverService.query({login:$scope.login, reqType: "orders"}, function (value){$scope.orders = value;});
-        $scope.drivers = DriverService.query({login:$scope.login, reqType: "drivers"});
+    $scope.accept = function(){
+        if ($scope.selected == true) {
+            DriverService.query({login: $scope.login, reqType: "accept", orderID: $scope.order}, function (value) {
+                $scope.OK = value;
+
+            });
+            if($scope.OK.toString() === "true") {
+                $scope.pay = true;
+                $scope.update();
+                alert("Accepted!");
+            }
+        }
+
     }
+    $scope.decline = function(){
+        if ($scope.selected == true) {
+            DriverService.query({login: $scope.login, reqType: "decline", orderID: $scope.order}, function (value) {
+                $scope.OK = value;
+            });
+            if ($scope.OK.toString() === "true") {
+                $scope.update();
+                alert("Declined!");
+            }
+        }
+    }
+
 }
 
 
 app
-    .service('InfoShareService', InfoShareService)
     .factory('DriverService', DriverService)
     .controller('DriverCtrl', DriverCtrl);

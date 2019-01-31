@@ -1,40 +1,71 @@
 <div data-gjs="navbar" class="navbar">
     <div class="navbar-container">
         <nav data-gjs="navbar-menu" class="navbar-menu">
-            <a ng-href="http://grapesjs.com/demo.html#" data-highlightable="1" class="navbar-menu-link">Source</a>
+            <a ng-href="#/login" class="navbar-menu-link">Log out</a>
         </nav>
     </div>
 </div>
 <form class="form">
     <div class="row">
+        <div class="cell"></div>
         <div class="cell">
             <div class="cell">
                 <table class="table">
                     <thead>
                     <tr>
+                        <th class="th"></th>
+                        <th class="th"><h3>New orders</h3></th>
+                        <th class="th"></th>
+                    </tr>
+                    <tr>
                         <th class="th">OrderId</th>
                         <th class="th">SourceAddr</th>
                         <th class="th">DestAddr</th>
-
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="tr" ng-repeat="order in orders" ng-click="OperatorCtrl.select(order)">
+                    <tr class="tr" ng-repeat="order in orders" ng-click="select(order.id)">
                         <td class="td">{{order.id}}</td>
-                        <td class="td">{{order.sourceAddr}}</td>
-                        <td class="td">{{order.destAddr}}</td>
+                        <td class="td">{{order.sourceAddress}}</td>
+                        <td class="td">{{order.destinationAddress}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="cell">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="th"></th>
+                        <th class="th"><h3>Free drivers</h3></th>
+                        <th class="th"></th>
+                    </tr>
+                    <tr>
+                        <th class="th">DriverId</th>
+                        <th class="th">Rating</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="tr" ng-repeat="driver in drivers" ng-click="selectDr(driver.id)">
+                        <td class="td">{{driver.id}}</td>
+                        <td class="td">{{driver.rating}}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        <div class="cell"></div>
     </div>
     <div class="row">
+        <div class="cell"></div>
         <div class="cell">
-            <button class="button" ng-click="OperatorCtrl.update()">Update</button>
+            <div class="cell">
+                <button class="button" ng-click="update()">Update</button>
+            </div>
+            <div class="cell">
+                <button class="button" ng-click="appoint()">Appoint</button>
+            </div>
         </div>
-        <div class="cell">
-            <button class="button" ng-click="OperatorCtrl.newOrder()">New order</button>
-        </div>
+        <div class="cell"></div>
     </div>
 </form>

@@ -1,11 +1,13 @@
 <div data-gjs="navbar" class="navbar">
     <div class="navbar-container">
         <nav data-gjs="navbar-menu" class="navbar-menu">
-            <a ng-href="http://grapesjs.com/demo.html#" data-highlightable="1" class="navbar-menu-link">Source</a>
+            <a ng-href="#/login" class="navbar-menu-link">Log out</a>
         </nav>
     </div>
 </div>
 <form class="form">
+    <div class="form-group">
+    </div>
     <div class="row">
         <div class="cell">
             <div class="cell">
@@ -14,14 +16,15 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th class="th"> </th>
-                        <th class="th"> last orders:</th>
-                        <th class="th"> </th>
+                        <th class="th"></th>
+                        <th class="th"><h3>last orders</h3></th>
+                        <th class="th"></th>
                     </tr>
                     <tr>
                         <th class="th">OrderId</th>
                         <th class="th">SourceAddr</th>
                         <th class="th">DestAddr</th>
+                        <th class="th">Status</th>
 
                     </tr>
                     </thead>
@@ -30,6 +33,7 @@
                         <td class="td">{{order.id}}</td>
                         <td class="td">{{order.sourceAddress}}</td>
                         <td class="td">{{order.destinationAddress}}</td>
+                        <td class="td">{{order.orderStatus}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -43,22 +47,44 @@
         <div class="cell">
         </div>
         <div class="cell">
-            <!--   <button class="button" ng-click="PassengerCtrl.showNew()">Show new order form</button>-->
-          </div>
-          <div class="cell">
-          </div>
-      </div>
-
-      <div class="row">
-     <!--ng-show="PassengerCtrl.needNew" -->
-        <div class="cell">
-        </div>
-        <div  class="cell">
-                <input ng-model="srcAddr" class="input" placeholder="Source Address"/>
-                <input ng-model="dstAddr" class="input" placeholder="Destination Address"/>
-              <button class="button" ng-click="PassengerCtrl.newOrder()">New order</button>
+            <div class="cell">
+            </div>
+            <div class="cell">
+            <button ng-click="showNew()" ng-enter="showNew()" class="button">Show new order form</button>
+            </div>
+            <div class="cell">
+            </div>
         </div>
         <div class="cell">
         </div>
     </div>
+
+    <div ng-show="needNew" class="row">
+        <div class="cell">
+        </div>
+        <div class="cell">
+            <input ng-model="srcAddr" class="input" placeholder="Source Address"/>
+            <input ng-model="dstAddr" class="input" placeholder="Destination Address"/>
+        </div>
+        <div class="cell">
+        </div>
+    </div>
+    <div ng-show="needNew" class="row">
+        <div class="cell">
+        </div>
+        <div class="cell">
+            <div class="cell">
+            </div>
+            <div class="cell">
+                <button ng-click="newOrder()" ng-enter="newOrder()" class="button">New order
+                </button>
+            </div>
+            <div class="cell">
+            </div>
+        </div>
+        <div class="cell">
+        </div>
+    </div>
+
+
 </form>

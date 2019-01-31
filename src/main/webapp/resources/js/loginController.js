@@ -30,7 +30,7 @@ function LoginController($scope, $http, UserService, InfoShareService) {
                 .then(function (response) {
                     if (response.data.toString() === "true") {
                             InfoShareService.setUser($scope.login.toString());
-                            window.location.href = '#/' + $scope.userType;//TODO::true redirect to users page???
+                            window.location.href = '#/' + $scope.userType;
                     } else {
                         alert("Incorrect login or password");
                         $scope.login = "";
@@ -46,7 +46,6 @@ function LoginController($scope, $http, UserService, InfoShareService) {
 
     this.registerUser = function () {
         if (isEmpty($scope.loginReg)) {
-            console.log($scope.loginReg);
             alert("Enter the login");
         } else if (isEmpty($scope.name)) {
             alert("Enter the name");
