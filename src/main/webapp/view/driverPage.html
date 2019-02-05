@@ -65,12 +65,22 @@
                     <button class="button" ng-click="decline()">Decline</button>
                 </div>
             </div>
+            <div ng-show="pay" class="row">
+                <div class="cell">
+                    <input ng-model="length" class="input" placeholder="Route length"/>
+                    <input ng-model="time" class="input" placeholder="Waiting time"/>
+                </div>
+            </div>
+            <div ng-show="pay" class="row">
+                <div class="cell">
+                </div>
+                <div class="cell">
+                    <button class="button" ng-click="pay()">Paid</button>
+                </div>
+                <div class="cell">
+                </div>
+            </div>
         </div>
     </div>
-    <div ng-show="pay" class="row">
-        <div class="cell">
-            <input ng-model="length" class="input" placeholder="Route length"/>
-            <input ng-model="time" class="input" placeholder="Waiting time"/>
-        </div>
-    </div>
+
 </form>

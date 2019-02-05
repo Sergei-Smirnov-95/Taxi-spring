@@ -61,4 +61,6 @@ public class DriverController {
     public List<Order> getOldOrders(@PathVariable String login) throws HaveNotOrderEx, HaveNotUserEx {
         return service.getOrdersByDriver(login);
     }
+
+    /*"rest/driver/{login}/pay"*/
 }

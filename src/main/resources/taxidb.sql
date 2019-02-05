@@ -11,7 +11,7 @@ CREATE TABLE `User` (
 	`phone` VARCHAR(255) NOT NULL,
 	`authenticated` BOOLEAN NOT NULL,
     `isBusy` BOOLEAN DEFAULT false NOT NULL,
-	`rating` FLOAT NOT NULL,
+	`rating` FLOAT DEFAULT 0.0,
 	`TypeUser` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -21,15 +21,18 @@ CREATE TABLE `Orders` (
 	`sourceAddr` VARCHAR(255) NOT NULL,
 	`destAddr` VARCHAR(255) NOT NULL,
 	`creationDate` DATETIME NOT NULL,
-	`executionDate` DATETIME NOT NULL,
-	`driverId` INT NOT NULL,
+	`executionDate` DATETIME,
+	`driverId` INT,
 	`passId` INT NOT NULL,
-	`operatorId` INT NOT NULL,
-	`routeLength` FLOAT NOT NULL,
-	`waitingTime` FLOAT NOT NULL,
-	`totalCost` FLOAT NOT NULL,
-	`isPayed` BOOLEAN NOT NULL,
-	`complaint` VARCHAR(255) NOT NULL,
+	`operatorId` INT,
+	`routeLength` FLOAT,
+	`waitingTime` FLOAT,
+    `orderStatus` ENUM("NEW","PROCESSING","APPOINTED",
+    "DECLINED","ACCEPTED","EXECUTED","DEAD") 
+    DEFAULT "EXECUTED",
+	`totalCost` FLOAT,
+	`isPayed` BOOLEAN DEFAULT FALSE,
+	`complaint` VARCHAR(255) DEFAULT " ",
 	PRIMARY KEY (`id`)
 );
 

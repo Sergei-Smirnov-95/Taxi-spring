@@ -13,38 +13,45 @@ function DriverCtrl($scope, $http, DriverService, InfoShareService){
         $scope.selected = true;
         $scope.order = order;
         alert("Selected! Need to accept");
-    }
+    };
     $scope.update = function(){
-        //alert("update");
+        alert("update");
         DriverService.query({login:$scope.login, reqType: "oldOrders"}, function (value){$scope.oldOrders = value;});
         $scope.newOrders = DriverService.query({login:$scope.login, reqType: "newOrders"});
 
-    }
+    };
     $scope.accept = function(){
         if ($scope.selected == true) {
-            DriverService.query({login: $scope.login, reqType: "accept", orderID: $scope.order}, function (value) {
-                $scope.OK = value;
-
-            });
-            if($scope.OK.toString() === "true") {
-                $scope.pay = true;
-                $scope.update();
-                alert("Accepted!");
-            }
+            $scope.result = DriverService.query({login: $scope.login, reqType: "accept", orderID: $scope.order});
+            if($scope.result) {
+                    $scope.pay = true;
+                    $scope.update();
+                    alert("Accepted!");
+             }
         }
 
-    }
+    };
     $scope.decline = function(){
         if ($scope.selected == true) {
-            DriverService.query({login: $scope.login, reqType: "decline", orderID: $scope.order}, function (value) {
-                $scope.OK = value;
-            });
-            if ($scope.OK.toString() === "true") {
-                $scope.update();
-                alert("Declined!");
-            }
+            $scope.result = DriverService.query({login: $scope.login, reqType: "decline", orderID: $scope.order});
+                if ($scope.result) {
+                    $scope.update();
+                    alert("Declined!");
+                }
+
         }
-    }
+    };
+    $scope.pay = function(){
+        if(!$scope.length){
+            alert("input length");
+        } else if(!$scope.time) {
+            alert("input time");
+        } else {
+            http.get('rest/driver/'+ $scope.login + '/pay?length=' + $scope.length +'&time=' + $scope.time)
+                            .then(function (response) {
+                            alert("Paid!");}
+        }
+    };
 
 }
 
