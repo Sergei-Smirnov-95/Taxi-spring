@@ -62,5 +62,13 @@ public class DriverController {
         return service.getOrdersByDriver(login);
     }
 
-    /*"rest/driver/{login}/pay"*/
+    @RequestMapping(value = "rest/driver/{login}/pay", method = RequestMethod.GET)
+    public String pay(@PathVariable String login, @RequestParam("time") int time, @RequestParam("length") int length, @RequestParam("orID") int orID) {
+        try {
+            service.setPayInfo(length,time,orID);
+            return "true";
+        } catch (HaveNotOrderEx ex) {
+            return "false";
+        }
+    }
 }

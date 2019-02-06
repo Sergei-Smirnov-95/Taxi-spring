@@ -52,15 +52,19 @@ function DriverCtrl($scope, $http, DriverService, InfoShareService) {
             alert("input length");
         } else if (!$scope.time) {
             alert("input time");
+        } else if (!$scope.order){
+            alert("have not selected order");
         } else {
-            /*$http.get('rest/driver/' + $scope.login + '/pay?length=' + $scope.length + '&time=' + $scope.time)
-                .then(function (response) {*/
-
-            $scope.needPay = !$scope.needPay ;
-            $scope.length="";
-            $scope.time="";
-            alert("Paid!");
-            // });
+            $http.get('rest/driver/' + $scope.login + '/pay?length=' + $scope.length +
+             '&time=' + $scope.time + '&orID=' + $scope.order)
+                .then(function (response) {
+                if (response){
+                    $scope.needPay = !$scope.needPay ;
+                    $scope.length="";
+                    $scope.time="";
+                    alert("Paid!");
+                }
+            });
         }
     };
 

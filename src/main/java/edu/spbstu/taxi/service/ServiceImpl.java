@@ -196,7 +196,7 @@ public class ServiceImpl {
         driverRepository.saveAndFlush(dr);
     }
 
-    public void setPayInfo(int dist, int time, int orderID) throws DBConnectionException, HaveNotOrderEx {
+    public void setPayInfo(int dist, int time, int orderID) throws HaveNotOrderEx {
         Order or = orderRepository.findById(orderID).orElseThrow(() -> new HaveNotOrderEx());
         or.setCostCalculation(time, dist);
         orderRepository.save(or);
