@@ -31,6 +31,9 @@ public class Order {
     private LocalDateTime creationDate;
     private LocalDateTime executionDate;
     private boolean isPayed;
+    private float routeLength;
+    private float waitingTime;
+    private float totalCost;
     @Transient
     private CostCalculation costCalculation;
 
@@ -85,6 +88,9 @@ public class Order {
         CostCalculation cc = new CostCalculation(waitingTime, routelength);
         this.costCalculation = cc;
         this.pay();
+        this.setRouteLength(routelength);
+        this.setWaitingTime(waitingTime);
+        this.setTotalCost(cc.getTotalCost());
     }
 
 }

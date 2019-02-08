@@ -41,9 +41,9 @@ public class Passenger extends User {
         //System.out.println("Order declined by passenger");
         return order.setOrderStatus(OrderStatus.DEAD);
     }
-
+/*
     void puyBill(Order or) {
         or.pay();
     }
-
+*/
 }

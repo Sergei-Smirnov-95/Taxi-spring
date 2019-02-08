@@ -199,6 +199,11 @@ public class ServiceImpl {
     public void setPayInfo(int dist, int time, int orderID) throws HaveNotOrderEx {
         Order or = orderRepository.findById(orderID).orElseThrow(() -> new HaveNotOrderEx());
         or.setCostCalculation(time, dist);
+        or.setExecutionDate(LocalDateTime.now());
+        or.setOrderStatus(OrderStatus.EXECUTED);
+        Driver dr = or.getDriver();
+        dr.setBusy(false);
+        driverRepository.saveAndFlush(dr);
         orderRepository.save(or);
     }
 }
