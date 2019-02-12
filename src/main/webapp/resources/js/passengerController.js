@@ -23,10 +23,7 @@ function PassengerCtrl($scope, $http, PassengerService, InfoShareService){
             PassengerService.query({login:$scope.login, TypeReq:"orders"}, function (value){$scope.orders = value;});
             $scope.srcAddr="";
             $scope.dstAddr="";
-            /*InfoShareService.setUser($scope.login);
-            window.location.href = '#/' + $scope.userType;*/
-
-        }
+         }
 
     };
     $scope.showNew = function(){
