@@ -191,8 +191,8 @@ body {
   float:right;
 }
 .navbar{
-  background-color:rgb(34, 34, 34);
-  color:rgb(221, 221, 221);
+  background-color:#18ad18cc;
+  color:#000000;
   min-height:50px;
   width:100%;
 }

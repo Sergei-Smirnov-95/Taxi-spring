@@ -12,7 +12,5 @@ import java.util.List;
 @Component
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-    /*@Query("select U from Orders U where U.passId = :passId")
-    List<Order> findByPassengerID(@Param("passId") int passId);*/
 
 }
