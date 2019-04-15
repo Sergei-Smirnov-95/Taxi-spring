@@ -65,10 +65,12 @@ public class DriverController {
     @RequestMapping(value = "rest/driver/{login}/pay", method = RequestMethod.GET)
     public String pay(@PathVariable String login, @RequestParam("time") int time, @RequestParam("length") int length, @RequestParam("orID") int orID) {
         try {
-            service.setPayInfo(length,time,orID);
+            service.setPayInfo(length,time,orID,login);
             return "true";
         } catch (HaveNotOrderEx ex) {
             return "false";
-        }
+        }catch (HaveNotUserEx ex) {
+                return "false";
+            }
     }
 }

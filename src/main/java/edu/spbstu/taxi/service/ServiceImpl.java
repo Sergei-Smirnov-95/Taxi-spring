@@ -196,9 +196,15 @@ public class ServiceImpl {
         driverRepository.saveAndFlush(dr);
     }
 
-    public void setPayInfo(int dist, int time, int orderID) throws HaveNotOrderEx {
+    public void setPayInfo(int dist, int time, int orderID, String login) throws HaveNotUserEx,HaveNotOrderEx {
         Order or = orderRepository.findById(orderID).orElseThrow(() -> new HaveNotOrderEx());
-        or.setCostCalculation(time, dist);
+        or.setCostCalculation(time,dist);
+        or.setPayed(true);
+        or.setExecutionDate(LocalDateTime.now());
+        or.setOrderStatus(OrderStatus.EXECUTED);
+        Driver dr = driverRepository.getDriverByLogin(login).orElseThrow(() -> new HaveNotUserEx());
+        dr.setBusy(false);
         orderRepository.save(or);
+        driverRepository.saveAndFlush(dr);
     }
 }
